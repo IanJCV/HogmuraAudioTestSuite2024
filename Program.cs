@@ -8,12 +8,16 @@ namespace HogmuraAudioTester
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
-        [STAThread]
+        [MTAThread]
         static void Main()
+        {
+            Start();
+        }
+
+        public static void Start()
         {
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
-            //Application.EnableVisualStyles();
             Application.Run(new Form1());
         }
     }
