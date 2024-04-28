@@ -9,8 +9,6 @@ namespace HogmuraAudioTester
 {
     public partial class Form1 : Form
     {
-        private List<WaveOutEvent> outputDevices = new();
-
         public Form1()
         {
             InitializeComponent();
@@ -45,14 +43,13 @@ namespace HogmuraAudioTester
         private void Play(ISampleProvider file, WaveFileReader wave)
         {
             var waveOut = new WaveOutEvent();
-            outputDevices.Add(waveOut);
             waveOut.Init(file);
             waveOut.Play();
             waveOut.PlaybackStopped += (s, e) =>
             {
                 waveOut.Dispose();
                 wave.Dispose();
-                outputDevices.Remove(waveOut);
+                GC.Collect();
             };
         }
     }
