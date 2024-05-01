@@ -43,6 +43,7 @@ namespace HogmuraAudioTester
                 tray?.Close();
             }
             Application.Exit();
+            Process.GetCurrentProcess().Kill();
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)

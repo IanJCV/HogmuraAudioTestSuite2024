@@ -101,9 +101,17 @@ namespace HogmuraAudioTester
 
         public void Close()
         {
-            ExitThread();
+            
             trayIcon.Visible = false;
-            onCloseRequested?.Invoke(this, EventArgs.Empty);
+            lock (monitor)
+            {
+                threadInterrupt = true;
+                Monitor.Pulse(monitor);
+            }
+
+            this.Dispose();
+            ExitThread();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
